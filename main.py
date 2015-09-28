@@ -1,19 +1,11 @@
 __author__ = 'Nadav'
 import os
 import json
-import smtplib
-from random import randint
-from email.mime.text import MIMEText
-import decimal
-import datetime
 import cherrypy
+import mimetypes
+mimetypes.types_map['.svg'] = 'image/svg+xml'
+mimetypes.types_map['.svgz'] = 'image/svg+xml'
 from mako.lookup import TemplateLookup
-import urllib
-import requests
-from random import randrange
-import xmltodict
-from io import StringIO
-import gzip
 
 class renderer(object):
     @cherrypy.expose
