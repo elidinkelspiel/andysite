@@ -9,6 +9,10 @@
     max-width: calc(100% - 20px);
 }
 
+a, a:active, a:visited {
+    color: #1A64B7;
+}
+
 .tab-control {
     list-style-type: none;
     display: inline-block;

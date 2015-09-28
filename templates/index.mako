@@ -5,7 +5,7 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
     <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,500,700' rel='stylesheet' type='text/css'>
     <meta charset="UTF-8">
-    <title>${page_config.get('name','').title()} - Handrewbrozel</title>
+    <title>${page_config.get('name','').title().replace("Vip", "VIP")} - Handrewbrozel</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="http://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="/js/master.js" type="text/javascript"></script>
@@ -47,8 +47,11 @@
         <form class="pw_form" action="" method="post">
         Enter password: <input type="password" name="pw_input" id="pw_input"/> <input type="submit" value="GO"/><br/>
         %if active_page == "/vip":
+            <br/>
+                <span style="font-weight: 500">
             VIPs can vote on the music and games they want to see, and have access to a top secret VIP lounge. Join the elite club by <a
                 href="https://www.twitchalerts.com/donate/handrewbrozel" target="_blank">making a donation</a>.
+            </span>
         %endif
         </form>
     %endif
