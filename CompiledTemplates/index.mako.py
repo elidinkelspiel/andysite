@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 9
-_modified_time = 1443388936.518
+_modified_time = 1443433009.525
 _enable_loop = True
 _template_filename = 'templates/index.mako'
 _template_uri = 'index.mako'
@@ -56,7 +56,7 @@ def render_body(context,**pageargs):
                 __M_writer(unicode(page_config.get('max_stream_width', 99999)))
                 __M_writer(u'px;">\r\n                    <ul class="tab-control">\r\n                        <li id="livescores" class="active-tab">Live Scores</li>\r\n                        <li id="teamstats">Team Stats</li>\r\n                    </ul>\r\n                    <div style="padding:5px" data-tab="livescores">\r\n                        GSW 100 - LAC 0\r\n                    </div>\r\n                    <div data-tab="teamstats" style="display:none">\r\n                    <script type="text/javascript"\r\n                            src="http://widgets.sports-reference.com/wg.fcgi?css=1&site=bbr&url=%2Fteams%2FGSW%2F2015.html&div=div_totals"></script>\r\n                    </div>\r\n                </div>\r\n')
             # SOURCE LINE 41
-            __M_writer(u'        </div>\r\n        <div class="chat-container">\r\n            <script id="cid0020000090554645135" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 350px;height: 700px;">{"handle":"andthefoot","arch":"js","styles":{"a":"04529c","b":100,"c":"ffcc33","d":"ffcc33","e":"ffffff","h":"ffffff","l":"cccccc","m":"dadada","p":"9","q":"ffcc33","r":100,"t":0,"usricon":0.61,"sbc":"ffcc33","surl":0,"cnrs":"1"}}</script>\r\n        </div>\r\n        <div class="clear"></div>\r\n')
+            __M_writer(u'        </div>\r\n        <div class="chat-container">\r\n            <script id="cid0020000090554645135" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 350px;height: 700px;">{"handle":"andthefoot","arch":"js","styles":{"a":"1A64B7","b":100,"c":"FBBF16","d":"FBBF16","e":"ffffff","h":"ffffff","l":"cccccc","m":"dadada","p":"9","q":"FBBF16","r":100,"t":0,"usricon":0.61,"sbc":"FBBF16","surl":0,"cnrs":"1"}}</script>\r\n        </div>\r\n        <div class="clear"></div>\r\n')
             # SOURCE LINE 46
         else:
             # SOURCE LINE 47

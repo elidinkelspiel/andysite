@@ -40,7 +40,7 @@
             %endif
         </div>
         <div class="chat-container">
-            <script id="cid0020000090554645135" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 350px;height: 700px;">{"handle":"andthefoot","arch":"js","styles":{"a":"04529c","b":100,"c":"ffcc33","d":"ffcc33","e":"ffffff","h":"ffffff","l":"cccccc","m":"dadada","p":"9","q":"ffcc33","r":100,"t":0,"usricon":0.61,"sbc":"ffcc33","surl":0,"cnrs":"1"}}</script>
+            <script id="cid0020000090554645135" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 350px;height: 700px;">{"handle":"andthefoot","arch":"js","styles":{"a":"1A64B7","b":100,"c":"FBBF16","d":"FBBF16","e":"ffffff","h":"ffffff","l":"cccccc","m":"dadada","p":"9","q":"FBBF16","r":100,"t":0,"usricon":0.61,"sbc":"FBBF16","surl":0,"cnrs":"1"}}</script>
         </div>
         <div class="clear"></div>
     %else:
