@@ -3,8 +3,9 @@ import os
 import json
 import cherrypy
 import mimetypes
-mimetypes.types_map['.svg'] = 'image/svg+xml'
-mimetypes.types_map['.svgz'] = 'image/svg+xml'
+if not mimetypes.inited:
+    mimetypes.init()
+mimetypes.add_type('image/svg+xml', '.svg', True)
 from mako.lookup import TemplateLookup
 
 class renderer(object):
