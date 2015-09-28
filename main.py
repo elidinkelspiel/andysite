@@ -41,7 +41,7 @@ class renderer(object):
         if page_url in URLS:
             pass
         else:
-            page_url = "error"
+            page_url = "/error"
 
         if cherrypy.request.method == "GET":
             # return open('index.html')

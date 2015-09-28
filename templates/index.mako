@@ -45,12 +45,16 @@
         <div class="clear"></div>
     %else:
         <form class="pw_form" action="" method="post">
-        Enter password: <input type="password" name="pw_input" id="pw_input"/> <input type="submit" value="GO"/>
+        Enter password: <input type="password" name="pw_input" id="pw_input"/> <input type="submit" value="GO"/><br/>
+        %if active_page == "/vip":
+            VIPs can vote on the music and games they want to see, and have access to a top secret VIP lounge. Join the elite club by <a
+                href="https://www.twitchalerts.com/donate/handrewbrozel" target="_blank">making a donation</a>.
+        %endif
         </form>
     %endif
 </div>
 <footer>
-    enjoy our streams? <a href="https://www.twitchalerts.com/donate/handrewbrozel" target="_blank">donate</a> to help us out
+    enjoy our streams? <a href="https://www.twitchalerts.com/donate/handrewbrozel" target="_blank">donate</a> to help us out and become a <a href="/vip">vip</a>!
 </footer>
 </body>
 </html>
