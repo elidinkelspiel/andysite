@@ -37,7 +37,9 @@ $(document).ready(function () {
         $('.tab-control li').removeClass('active-tab');
         $(this).addClass('active-tab');
         $('.below div[data-tab]').fadeOut();
-        $('.below div[data-tab="'+$(this).attr('id')+'"]').fadeIn();
+        $('.below div[data-tab="'+$(this).attr('id')+'"]').fadeIn(400, function() {
+            $(window).resize();
+        });
     });
     $('#new-link-item').click(function () {
         var str = $('.link-item').last()[0].outerHTML + '<br/>';

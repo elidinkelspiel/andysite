@@ -29,7 +29,7 @@
                         <li id="livescores" class="active-tab">Live Scores</li>
                         <li id="teamstats">Team Stats</li>
                     </ul>
-                    <div style="padding:5px" data-tab="livescores">
+                    <div style="padding:5px; height: auto" data-tab="livescores">
                         GSW 100 - LAC 0
                     </div>
                     <div data-tab="teamstats" style="display:none">
