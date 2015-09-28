@@ -37,6 +37,7 @@ CompiledTemplates/
 .LSOverride
 
 config.cfg
+admin.cfg
 
 # Thumbnails
 ._*

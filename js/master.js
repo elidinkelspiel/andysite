@@ -18,8 +18,8 @@ $(document).ready(function () {
         if (th == 50) {
             th = 99999;
         }
-        if (hv > hc) {
-            $('.below').css({"max-height": th, height: "100%", width: "calc(100vw - 40px)"})
+        if ((hv+37) > hc) {
+            $('.below').css({"max-height": th, height: "100%", width: "calc(100vw - 60px)"})
         } else {
             $('.below').css({"max-height": th, height: (hc-hv-10), width: $('.video-container iframe').css('width')})
         }

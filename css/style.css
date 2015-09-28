@@ -5,7 +5,7 @@
 
 .below {
     overflow: hidden;
-    min-height: 50px;
+    min-height: 100px;
     max-width: calc(100% - 20px);
 }
 
