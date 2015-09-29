@@ -207,6 +207,13 @@ div[data-tab] {
     top: -8px;
 }
 
+nav span.mobile-nav {
+    font-size: 1.5em;
+    cursor: pointer;
+    display: none;
+    float: right;
+}
+
 nav a {
     display: block;
     float: left;
@@ -410,6 +417,15 @@ body {
     font-weight: 300;
 }
 
+span.hand {
+    font-size: 1.5em;
+    display: none;
+    line-height: 1.5em;
+    cursor: pointer;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
 @media (max-width: 800px) {
     .video-container, .chat-container {
         width: 100%;
@@ -434,8 +450,70 @@ body {
     }
 }
 
+.desktop-nav {
+    display: inline-block;
+}
+
 @media (max-width: 500px) {
     div[data-votes] {
         max-width: 100%;
+    }
+}
+
+/*mobile*/
+@media (max-width: 600px) {
+    nav span.mobile-nav, nav span.hand {
+        display: inline;
+    }
+    footer {
+        font-size: 1em;
+    }
+    nav {
+        position: relative;
+    }
+    .container {
+        margin-top: 0;
+    }
+   /* .desktop-nav {
+        display: none;
+        position: absolute;
+        z-index: 9999;
+        width: 100%;
+        left: 0;
+        top: 60px;
+    }*/
+    nav a {
+        display: none;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        background-color: #FBBF16;
+        margin-left: 0;
+        width: calc(100% + 20px);
+        position: relative;
+        left: -10px;
+        top: 9px;
+    }
+    nav a:last-child {
+        margin-bottom: 30px;
+    }
+    ul.polls {
+        position: relative !important;
+        display: none;
+        width: calc(100% + 20px) !important;
+        border-radius: 0 !important;
+        left: -10px !important;
+        top: -1px !important;
+        padding-top: 5px !important;
+    }
+
+    a[href="/polls"]:hover > ul.polls, ul.polls:hover {
+        display: block !important;
+    }
+}
+
+@media (max-width: 275px) {
+    span.hand {
+        display: none !important;
     }
 }

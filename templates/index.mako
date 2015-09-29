@@ -11,8 +11,10 @@
     <script src="/js/master.js" type="text/javascript"></script>
 </head>
 <body>
-<nav>
+<%doc><nav>
     <img src="/assets/gswlogo.svg" class="logo" />
+    <span class="hand">geoffgeoff</span>
+    <div class="desktop-nav">
     %for link in config:
         %if link['name'] != "error":
             <a class="${"active" if link['uri']==active_page else ""}" href="${link['uri']}">${link['name']}</a>
@@ -29,8 +31,10 @@
             </ul>
         </a>
     %endif
-
-</nav>
+    </div>
+    <span class="mobile-nav">&#9776;</span>
+</nav></%doc>
+<%include file="/templates/header.mako"/>
 <div class="container">
     %if (active_page == "/vip" and vips is not UNDEFINED and username is not None and vips.get(username, None)==password) or ((page_config.get('password', UNDEFINED) is UNDEFINED and password is UNDEFINED) or password==page_config['password']):
         <div style="max-width: ${page_config.get('max_stream_width', 99999)}px;" class="video-container">
