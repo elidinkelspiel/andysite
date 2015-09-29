@@ -38,6 +38,7 @@ CompiledTemplates/
 
 config.cfg
 admin.cfg
+polls.cfg
 
 # Thumbnails
 ._*

@@ -1,30 +1,40 @@
 $(document).ready(function () {
-    resizeFunc = function(){
+    resizeFunc = function () {
         var h;
         if ($(window).width() > 800) {
             $('.chat-container iframe').css('height', $(window).height() - 125);
             h = $(window).height() - 125;
             $('.container').css('margin-left', Math.max(0, ($(window).width() - $('.video-container').width() - $('.chat-container').width() - 50) / 2))
+            try {
+                var hv = $('.video-container iframe').css('height');
+                hv = parseInt(hv.substr(0, hv.length - 2));
+                var hc = $('.chat-container iframe').css('height');
+                hc = parseInt(hc.substr(0, hc.length - 2));
+                var th = $('table.sortable').css('height');
+                th = parseInt(th.substr(0, th.length - 2)) + 50;
+                if (th == 50) {
+                    th = 99999;
+                }
+                if ((hv + 37) > hc) {
+                    $('.below').css({"max-height": th, height: "100%", width: "calc(100vw - 60px)"})
+                } else {
+                    $('.below').css({
+                        "max-height": th,
+                        height: (hc - hv - 10),
+                        width: $('.video-container iframe').css('width')
+                    })
+                }
+            } catch (e) {
+
+            }
         } else {
             h = $(window).height() - 115;
-            $('.chat-container iframe').css('height', $(window).height() - 115)
+            $('.chat-container iframe').css('height', $(window).height() - 115);
+            $('.below').css('height', 'auto').css('width', '100%');
         }
-        var hv = $('.video-container iframe').css('height');
-        hv = parseInt(hv.substr(0, hv.length - 2));
-        var hc = $('.chat-container iframe').css('height');
-        hc = parseInt(hc.substr(0, hc.length - 2));
-        var th = $('table.sortable').css('height');
-        th = parseInt(th.substr(0, th.length - 2)) + 50;
-        if (th == 50) {
-            th = 99999;
-        }
-        if ((hv+37) > hc) {
-            $('.below').css({"max-height": th, height: "100%", width: "calc(100vw - 60px)"})
-        } else {
-            $('.below').css({"max-height": th, height: (hc-hv-10), width: $('.video-container iframe').css('width')})
-        }
+        voteResults();
     };
-    setTimeout(function(){
+    setTimeout(function () {
         resizeFunc()
     }, 1000);
     $('iframe').load(function () {
@@ -33,11 +43,11 @@ $(document).ready(function () {
     $('.logo').click(function () {
         location.href = "/"
     });
-    $('.tab-control li').click(function(){
+    $('.tab-control li').click(function () {
         $('.tab-control li').removeClass('active-tab');
         $(this).addClass('active-tab');
-        $('.below div[data-tab]').fadeOut();
-        $('.below div[data-tab="'+$(this).attr('id')+'"]').fadeIn(400, function() {
+        $('div[data-tab]').fadeOut();
+        $('div[data-tab="' + $(this).attr('id') + '"]').fadeIn(400, function () {
             $(window).resize();
         });
     });
@@ -48,10 +58,20 @@ $(document).ready(function () {
         el.find('input').val('');
         el.find('textarea').val('');
     });
+    $('#new-vip').click(function () {
+        $('.vip-item').last().after('<div class="vip-item"><input type="text" data-key="username" placeholder="Username"> <input type="text" data-key="password" placeholder="Password"> <span class="vip-del">(DELETE)</span></div>')
+    });
+    $('#new-poll-item').click(function () {
+        var str = $('.link-item').last()[0].outerHTML + '<br/>';
+        $('.link-item').last().next().after(str);
+        var el = $('.link-item').last();
+        el.find('input').val('');
+        el.find('textarea').val('');
+    });
     $('#save-link-items').click(function () {
         var items = [];
         var flag = true;
-        $('.link-item').each(function (i) {
+        $('[data-tab="pages"] .link-item').each(function (i) {
             console.log(i);
             var obj = {};
             var t = $(this);
@@ -59,7 +79,7 @@ $(document).ready(function () {
             var name = t.find('[data-key="name"]').val().trim();
             var uri = t.find('[data-key="uri"]').val().trim();
             if (name == "" || uri == "") {
-                alert('Cmon Andy. You left the name or URL blank in item #' + (i + 1))
+                alert('Cmon Andy. You left the name or URL blank in item #' + (i + 1));
                 flag = false;
                 return false;
             }
@@ -80,10 +100,153 @@ $(document).ready(function () {
             });
         }
     });
-    $('.link-item span').click(function () {
+    $('#save-vips').click(function () {
+        var vips = {};
+        var flag = true;
+        $('.vip-list .vip-item').each(function (i) {
+            var un = $(this).find('input[data-key="username"]').val().trim();
+            var pw = $(this).find('input[data-key="password"]').val().trim();
+            if (un == "" || pw == "") {
+                alert('Cmon Andy. You left the username or password blank in item #' + (i + 1));
+                flag = false;
+                return false;
+            }
+            vips[un] = pw;
+        });
+        if (flag) {
+            $.post("/admin", {"vips": JSON.stringify(vips)}, function (data) {
+                if (data == "success") {
+                    if (confirm("Configuration updated successfully.  Click OK to reload")) {
+                        location.reload()
+                    }
+                }
+
+            });
+        }
+    });
+    $('#save-poll-items').click(function () {
+        var items = [];
+        var flag = true;
+        $('[data-tab="polls"] .link-item').each(function (i) {
+            console.log(i);
+            var obj = {};
+            var t = $(this);
+            var inputs = t.find('[data-key]');
+            var name = t.find('[data-key="name"]').val().trim();
+            if (name == "") {
+                alert('Cmon Andy. You left the name blank in item #' + (i + 1));
+                flag = false;
+                return false;
+            }
+            inputs.each(function () {
+                if ($(this).is('input')) {
+                    if ($(this).is('[type="checkbox"]')) {
+                        obj[$(this).attr('data-key')] = $(this).val().trim() == "on"
+                    }
+                    else if ($(this).val() != "") {
+                        obj[$(this).attr('data-key')] = $(this).val().trim()
+                    }
+                } else { //options div
+                    obj[$(this).attr('data-key')] = [];
+                    var dk = $(this).attr('data-key'); // == "options"
+                    $(this).find('input').each(function () {
+                        if ($(this).val() != '') {
+                            obj[dk].push({
+                                'name': $(this).val(),
+                                'votes': parseInt($(this).next().next().find('label').text())
+                            });
+                        }
+                    });
+                    if (obj[$(this).attr('data-key')].length == 0) {
+                        alert('Cmon Andy. You didn\'t add any options in item #' + (i + 1));
+                        flag = false;
+                        return false;
+                    }
+                }
+            });
+            items.push(obj)
+        });
+        if (flag) {
+            $.post("/admin", {"polls": JSON.stringify(items)}, function (data) {
+                if (data == "success") {
+                    if (confirm("Polls updated successfully.  Click OK to reload")) {
+                        location.reload()
+                    }
+                }
+
+            });
+        }
+    });
+    $('#make-vote').click(function () {
+        var res = [];
+        var flag = true;
+        var active = $('.poll-list li.active');
+        if (active.length > 0) {
+            active.each(function () {
+                res.push($(this).text())
+            })
+        } else {
+            alert('Please select at least one option.');
+            flag = false;
+            return false;
+        }
+        if (flag) {
+            $.post("", {"vote": JSON.stringify(res)}, function (data) {
+                location.reload()
+            });
+        }
+    });
+    voteResults = function () {
+        $('.vote-results div[data-votes]').each(function () {
+            //var bw = 50;
+            var v = parseInt($(this).attr('data-votes'));
+            var f = v / max_vote;
+            var maxw = $(this).css('max-width');
+            if (maxw == "100%") {
+                maxw = $('.container').width() - 40;
+            } else {
+                maxw = parseInt(maxw.replace(/[%a-zA-Z]/g, ''));
+            }
+            var minw = $(this).css('min-width');
+            minw = parseInt(minw.replace(/[%a-zA-Z]/g, ''));
+            var w = (maxw - minw) * f;
+            /*var ow = $(this).css('width');
+             ow = parseInt(ow.replace(/[%a-zA-Z]/g, ''));*/
+            var nw = minw + w;
+            //console.log(nw);
+            $(this).css('width', nw);
+        });
+    }
+    $('.poll-list li').click(function () {
+        $(this).toggleClass('active');
+        if ($('.poll-list li.active').length > max_poll_opts) {
+            $('.poll-list li.active').not(this).first().removeClass('active')
+        }
+        //$('.poll-list li').removeClass('active');
+    });
+    $('[data-tab="polls"] [data-key="version"]').on('input change propertychange', function () {
+        $(this).parents('.link-item').find('label').text(0)
+    });
+    $('body').on('click', '.add-poll-option', function () {
+        $(this).before('<input/> <b class="remove-poll-option" style="cursor: pointer;">X</b><span> - <label>0</label> votes</span><br>');
+        $(this).prev().prev().prev().prev().focus();
+    }).on('click', '.remove-poll-option', function () {
+        $(this).prev().remove();
+        $(this).next().remove();
+        $(this).next().remove();
+        $(this).remove();
+    }).on('click', '.link-item span.delete', function () {
+        if ($(this).parents('.admin-tab').children('.link-item').length) {
+            $('#new-poll-item').click()
+        }
         var br = $(this).parents().eq(0).next();
         $(this).parents().eq(0).remove();
         br.remove();
+    }).on('click', "span.vip-del", function () {
+        $(this).parent().remove();
+        if ($('.vip-item').length == 0) {
+            $('.vip-list').append('<div class="vip-item"><input type="text" data-key="username" placeholder="Username"> <input type="text" data-key="password" placeholder="Password"> <span class="vip-del">(DELETE)</span></div>');
+        }
     });
     //youtube autodimension
     // Find all YouTube videos
@@ -120,7 +283,7 @@ $(document).ready(function () {
 
         });
 
-        resizeFunc()
+        resizeFunc();
 
 // Kick off one resize to fix all videos on page load
     }).resize();
