@@ -67,6 +67,7 @@ $(document).ready(function () {
         var el = $('.link-item').last();
         el.find('input').val('');
         el.find('textarea').val('');
+        $('[data-tab="polls"] [data-key="version"]').last().change();
     });
     $('#save-link-items').click(function () {
         var items = [];
@@ -141,7 +142,7 @@ $(document).ready(function () {
             inputs.each(function () {
                 if ($(this).is('input')) {
                     if ($(this).is('[type="checkbox"]')) {
-                        obj[$(this).attr('data-key')] = $(this).val().trim() == "on"
+                        obj[$(this).attr('data-key')] = $(this).prop('checked')
                     }
                     else if ($(this).val() != "") {
                         obj[$(this).attr('data-key')] = $(this).val().trim()
@@ -176,6 +177,10 @@ $(document).ready(function () {
 
             });
         }
+    });
+    $('ul.polls li').click(function(e){
+        e.preventDefault();
+        location.assign($(this).attr('data-href'));
     });
     $('#make-vote').click(function () {
         var res = [];
@@ -224,7 +229,7 @@ $(document).ready(function () {
         }
         //$('.poll-list li').removeClass('active');
     });
-    $('[data-tab="polls"] [data-key="version"]').on('input change propertychange', function () {
+    $('body').on('input change propertychange', '[data-tab="polls"] [data-key="version"]', function () {
         $(this).parents('.link-item').find('label').text(0)
     });
     $('body').on('click', '.add-poll-option', function () {

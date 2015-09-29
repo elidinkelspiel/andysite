@@ -24,6 +24,17 @@
             <a class="${"active" if link['uri']==active_page else ""}" href="${link['uri']}">${link['name']}</a>
         %endif
     %endfor
+    %if len([poll_ for poll_ in polls if poll_.get('uri', '') is not '' and not poll_.get('vip_only', True)]) > 0:
+        <a href="/polls">POLLS
+            <ul class="polls">
+                %for poll_ in polls:
+                    %if poll_.get('uri', '') is not '' and not poll_.get('vip_only', True):
+                        <li data-href="/polls${poll_['uri']}">${poll_['name']}</li>
+                    %endif
+                %endfor
+            </ul>
+        </a>
+    %endif
 </nav>
 <div class="container pw_form">
     <%doc>%if page_config.get('password', UNDEFINED) is UNDEFINED or (page_config.get('password', UNDEFINED) is UNDEFINED and password is UNDEFINED) or password==page_config['password']:

@@ -308,7 +308,7 @@ div[data-votes] {
     padding: 3px 7px;
     /*cursor: pointer;*/
     background-color: #FBBF16;
-    color: #1A64B7;
+    color: #333;
 }
 
 input[type="submit"] {
@@ -354,6 +354,48 @@ html {
 
 *, *:before, *:after {
     box-sizing: inherit;
+}
+
+a[href="/polls"] {
+    position: relative;
+}
+
+a[href="/polls"]:hover > ul.polls, ul.polls:hover {
+    display: block;
+    position: absolute;
+    left: -50%;
+    width: 200px;
+    padding-top: 20px;
+    top: 25px;
+    font-size: 0.8em;
+    z-index: -1;
+}
+
+ul.polls li {
+    padding: 0 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid #FBBF16;
+}
+
+ul.polls li:hover {
+    /*color: #FBBF16;*/
+    /*background-color: #1A64B7;*/
+    border: 2px solid #1A64B7;
+}
+
+ul.polls {
+    list-style-type: none;
+    display: none;
+    padding: 3px;
+    background-color: #FBBF16;
+    color: #1A64B7;
+    margin: 0;
+    position: relative;
+    left: -10px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 body, html {

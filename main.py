@@ -78,13 +78,13 @@ class renderer(object):
             if cherrypy.request.method == "GET":
                 # return open('index.html')
                 tmpl = tmpltLookup.get_template("index.mako")
-                return tmpl.render(vips=vips, config=config, active_page=page_url, page_config=[x for x in
+                return tmpl.render(polls=polls, vips=vips, config=config, active_page=page_url, page_config=[x for x in
                                                                                                 config if
                                                                                                 x['uri'] ==
                                                                                                 page_url][0])
             elif cherrypy.request.method == "POST":
                 tmpl = tmpltLookup.get_template("index.mako")
-                return tmpl.render(vips=vips, password=kw['pw_input'], username=kw.get('pw_user', None), config=config,
+                return tmpl.render(polls=polls, vips=vips, password=kw['pw_input'], username=kw.get('pw_user', None), config=config,
                                    active_page=page_url,
                                    page_config=[x for x in
                                                 config if
@@ -93,15 +93,17 @@ class renderer(object):
                                                 page_url][
                                        0])
         elif page_url in POLL_URLS:
+            poll = [poll for poll in polls if page_url.endswith(poll.get('uri', 'kjhdfkgjhdfkgjhdf'))][0]
+            cookie_name = str('vote' + ''.join(args) + poll['version'])
             if cherrypy.request.method == "GET":
-                poll = [poll for poll in polls if page_url.endswith(poll.get('uri', 'kjhdfkgjhdfkgjhdf'))][0]
                 tmpl = tmpltLookup.get_template("poll.mako")
-                return tmpl.render(poll=poll, config=config, vips=vips)
+                if cherrypy.request.cookie.get(cookie_name, False) is False:
+                    return tmpl.render(poll=poll, config=config, vips=vips, voted=False, polls=polls)
+                else:
+                    return tmpl.render(poll=poll, config=config, vips=vips, voted=True, polls=polls)
             elif cherrypy.request.method == "POST":
-                poll = [poll for poll in polls if page_url.endswith(poll.get('uri', 'kjhdfkgjhdfkgjhdf'))][0]
                 tmpl = tmpltLookup.get_template("poll.mako")
                 vote = kw.get('vote', '')
-                cookie_name = str('vote' + ''.join(args) + poll['version'])
                 # cookie_name = 'abcdef'
                 if vote == '' and cherrypy.request.cookie.get(cookie_name, False) is False:
                     return tmpl.render(voted=False, poll=poll, config=config, vips=vips, password=kw['pw_input'],
@@ -127,7 +129,7 @@ class renderer(object):
                     return 'success'
                 else:
                     return tmpl.render(voted=True, poll=poll, config=config, vips=vips, password=kw.get('pw_input', ''),
-                                       username=kw.get('pw_user', None))
+                                       username=kw.get('pw_user', None), polls=polls)
 
 
 tmpltLookup = TemplateLookup(module_directory='CompiledTemplates', directories=['templates', ''],

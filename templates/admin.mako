@@ -18,6 +18,17 @@
             <a class="${"active" if link['uri']==active_page else ""}" href="${link['uri']}">${link['name']}</a>
         %endif
     %endfor
+    %if len([poll for poll in polls if poll.get('uri', '') is not '' and not poll.get('vip_only', True)]) > 0:
+        <a href="/polls">POLLS
+            <ul class="polls">
+                %for poll in polls:
+                    %if poll.get('uri', '') is not '' and not poll.get('vip_only', True):
+                        <li data-href="/polls${poll['uri']}">${poll['name']}</li>
+                    %endif
+                %endfor
+            </ul>
+        </a>
+    %endif
 </nav>
 <div class="container pw_form">
     %if password is not UNDEFINED and password == "ayylmaomemes":
