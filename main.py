@@ -94,7 +94,7 @@ class renderer(object):
                                        0])
         elif page_url in POLL_URLS:
             poll = [poll for poll in polls if page_url.endswith(poll.get('uri', 'kjhdfkgjhdfkgjhdf'))][0]
-            cookie_name = str('vote' + ''.join(args) + poll['version'])
+            cookie_name = str('vote' + ''.join(args) + poll.get('version',''))
             if cherrypy.request.method == "GET":
                 tmpl = tmpltLookup.get_template("poll.mako")
                 if cherrypy.request.cookie.get(cookie_name, False) is False:
