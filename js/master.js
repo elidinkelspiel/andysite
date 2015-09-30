@@ -260,7 +260,7 @@ $(document).ready(function () {
     });
     //youtube autodimension
     // Find all YouTube videos
-    var $allVideos = $("iframe[src*='//www.youtube.com']"),
+    var $allVideos = $(".video-container iframe"),
 
     // The element that is fluid width
         $fluidEl = $(".video-container");
