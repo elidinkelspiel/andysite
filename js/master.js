@@ -55,19 +55,21 @@ $(document).ready(function () {
        $('nav a').slideToggle();
     });
     $('#new-link-item').click(function () {
-        var str = $('.link-item').last()[0].outerHTML + '<br/>';
-        $('.link-item').last().next().after(str);
-        var el = $('.link-item').last();
-        el.find('input').val('');
-        el.find('textarea').val('');
+        var lli = $('#new-link-item').parents('.admin-tab').find('.link-item').last();
+        var str = lli[0].outerHTML + '<br/>';
+        lli.next().after(str);
+        lli = $('#new-link-item').parents('.admin-tab').find('.link-item').last();
+        lli.find('input').val('');
+        lli.find('textarea').val('');
     });
     $('#new-vip').click(function () {
         $('.vip-item').last().after('<div class="vip-item"><input type="text" data-key="username" placeholder="Username"> <input type="text" data-key="password" placeholder="Password"> <span class="vip-del">(DELETE)</span></div>')
     });
     $('#new-poll-item').click(function () {
-        var str = $('.link-item').last()[0].outerHTML + '<br/>';
-        $('.link-item').last().next().after(str);
-        var el = $('.link-item').last();
+        var lli = $('#new-poll-item').parents('.admin-tab').find('.link-item').last();
+        var str = lli[0].outerHTML + '<br/>';
+        lli.next().after(str);
+        var el = $('#new-poll-item').parents('.admin-tab').find('.link-item').last();
         el.find('input').val('');
         el.find('textarea').val('');
         $('[data-tab="polls"] [data-key="version"]').last().change();
@@ -244,8 +246,8 @@ $(document).ready(function () {
         $(this).next().remove();
         $(this).remove();
     }).on('click', '.link-item span.delete', function () {
-        if ($(this).parents('.admin-tab').children('.link-item').length) {
-            $('#new-poll-item').click()
+        if ($(this).parents('.admin-tab').children('.link-item').length == 1) {
+            $(this).parents('.admin-tab').find('.admin-action[id^="new"]').click()
         }
         var br = $(this).parents().eq(0).next();
         $(this).parents().eq(0).remove();

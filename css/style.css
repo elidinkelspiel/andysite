@@ -460,6 +460,8 @@ span.hand {
     }
 }
 
+
+
 /*mobile*/
 @media (max-width: 600px) {
     nav span.mobile-nav, nav span.hand {
