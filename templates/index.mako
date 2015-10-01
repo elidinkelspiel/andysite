@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <title>${page_config.get('name','').title().replace("Vip", "VIP")} - Handrewbrozel</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/js/master.js" type="text/javascript"></script>
 </head>
 <body>

@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <title>Top Sikrit Admin Config</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/js/master.js" type="text/javascript"></script>
 </head>
 <body>
@@ -53,8 +54,10 @@
                  style="font-size: 1.5em;color: #FBBF16;border: 2px solid #FBBF16;background-color: #1A64B7;">SAVE
             </div>
             <br/>
+            <div class="admin-options">
             %for link in config:
-                <div class="link-item">
+                <div class="link-item"
+                        style="margin-bottom: 10px;">
                     % if link['uri'] != "/":
                         <span class="delete">DELETE</span>
                     % endif
@@ -70,10 +73,10 @@
                                                 value="${link.get('max_stream_width','')}"/> (leave blank for unlimited)
                     <br/>
                     Page Embed Code / Text:<br/>
-                    <textarea data-key="text" style="width:100%; height: 100px">${link['text']}</textarea>
+                    <textarea data-key="text" style="width:100%; height: 100px">${link.get('text','')}</textarea>
                 </div>
-                <br/>
             %endfor
+            </div>
             <div class="admin-action" id="new-link-item">+</div>
         </div>
         <div class="admin-tab" data-tab="polls" style="display:none">
@@ -81,8 +84,9 @@
                  style="font-size: 1.5em;color: #FBBF16;border: 2px solid #FBBF16;background-color: #1A64B7;">SAVE
             </div>
             <br/>
+        <div class="admin-options">
             %if len(polls) is 0:
-                <div class="link-item">
+                <div class="link-item" style="margin-bottom: 10px;">
                     <span class="delete">DELETE</span>
                     Page Title: <input type="text" data-key="name" value=""/><br/>
                     Page URL: <input type="text" data-key="uri" value=""/><br/> (leave blank for no external link) <br/>
@@ -98,10 +102,10 @@
                         <b class="add-poll-option" style="cursor: pointer;">+</b>
                     </div>
                 </div>
-                <br/>
+
             %endif
             %for poll in polls:
-                <div class="link-item">
+                <div class="link-item" style="margin-bottom: 10px">
                     <span class="delete">DELETE</span>
                     %if poll.get('uri','') is not '':
                         <a href="/polls${poll.get('uri','')}">Link to Poll</a><br/>
@@ -132,8 +136,9 @@
                         %endif
                     </div>
                 </div>
-                <br/>
+
             %endfor
+            </div>
             <div class="admin-action" id="new-poll-item">+</div>
         </div>
     %else:

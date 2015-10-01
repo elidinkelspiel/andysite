@@ -258,6 +258,7 @@ $(document).ready(function () {
             $('.vip-list').append('<div class="vip-item"><input type="text" data-key="username" placeholder="Username"> <input type="text" data-key="password" placeholder="Password"> <span class="vip-del">(DELETE)</span></div>');
         }
     });
+    $('.admin-options').sortable();
     //youtube autodimension
     // Find all YouTube videos
     var $allVideos = $(".video-container iframe"),
