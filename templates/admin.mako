@@ -116,7 +116,7 @@
                     link) <br/>
                     VIPs only: <input data-key="vip_only" type="checkbox" ${"checked" if poll['vip_only'] else ""} />
                     <br/>
-                    Max options: <input data-key="max_opts" type="number" min="1" value="${poll['max_opts']}"/> (leave
+                    Max options: <input data-key="max_opts" type="number" min="1" value="${poll.get('max_opts','')}"/> (leave
                     blank for unlimited)<br/>
                     Version: <input data-key="version" type="number" min="1" value="${poll.get('version','')}"/><br/>
                     Options: <br/>
