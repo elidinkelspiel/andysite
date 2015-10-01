@@ -124,6 +124,7 @@ div[data-tab] {
 
 .link-item {
     text-align: left;
+    cursor: move;
 }
 
 .poll-list {
