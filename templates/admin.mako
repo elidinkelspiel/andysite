@@ -91,7 +91,7 @@
                     Page Title: <input type="text" data-key="name" value=""/><br/>
                     Page URL: <input type="text" data-key="uri" value=""/><br/> (leave blank for no external link) <br/>
                     VIPs only: <input data-key="vip_only" type="checkbox"/><br/>
-                    Max options: <input data-key="max_opts" type="number" min="1" value="1"/><br/>
+                    Max options: <input data-key="max_opts" type="number" min="1" value="1"/> (leave blank for unlimited)<br/>
                     Version: <input data-key="version" type="number" min="1" value="1"/><br/>
                     Options: <br/>
 
@@ -116,7 +116,8 @@
                     link) <br/>
                     VIPs only: <input data-key="vip_only" type="checkbox" ${"checked" if poll['vip_only'] else ""} />
                     <br/>
-                    Max options: <input data-key="max_opts" type="number" min="1" value="${poll['max_opts']}"/><br/>
+                    Max options: <input data-key="max_opts" type="number" min="1" value="${poll['max_opts']}"/> (leave
+                    blank for unlimited)<br/>
                     Version: <input data-key="version" type="number" min="1" value="${poll.get('version','')}"/><br/>
                     Options: <br/>
 

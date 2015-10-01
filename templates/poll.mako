@@ -11,9 +11,10 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/js/master.js" type="text/javascript"></script>
     <script type="text/javascript">
-        max_poll_opts = ${poll['max_opts']}
+        max_poll_opts = parseInt(${poll.get('max_opts',99999999)});
         try {
-            max_vote = ${max([opt['votes'] for opt in poll['options']])} } catch (e) {
+            max_vote = parseInt(${max([opt['votes'] for opt in poll['options']])})
+        } catch (e) {
         }
     </script>
 </head>
@@ -67,24 +68,32 @@
             <input type="submit" style="font-size: 1.5em;" value="GO"/><br/>
         </form>
     %else:
-        %if not voted:
-            <ul class="poll-list">
-                %for opt in poll['options']:
-                    <li>${opt['name']}</li>
-                %endfor
-            </ul>
-            <br/>
+    %if 'max_opts' in poll.keys():
+        Select ${'up to ' if int(poll['max_opts']) > 1 else ' '}${poll['max_opts']}
+        option${'s' if int(poll['max_opts']) > 1 else ''}
+    %else:
+        Select as many options as you want.
+    %endif
+        <br>
+    %if not voted:
+        <ul class="poll-list">
+            %for opt in poll['options']:
+                <li>${opt['name']}</li>
+            %endfor
+        </ul>
+        <br/>
 
-            <div id="make-vote" class="admin-action" style="font-size: 1.5em;">VOTE</div>
-        %else:
-            <div class="vote-results">
-                %for opt in sorted(poll['options'], key=lambda k: (-k['votes'], k['name'])):
-                    <div data-votes="${opt['votes']}" title="${opt['name']}">${opt['name']}</div>
-                    <div class="opt-votes">${opt['votes']}</div>
-                    <br>
-                %endfor
-            </div>
-        %endif
+        <div id="make-vote" class="admin-action" style="font-size: 1.5em;">VOTE</div>
+    %else:
+        <br>
+        <div class="vote-results">
+            %for opt in sorted(poll['options'], key=lambda k: (-k['votes'], k['name'])):
+                <div data-votes="${opt['votes']}" title="${opt['name']}">${opt['name']}</div>
+                <div class="opt-votes">${opt['votes']}</div>
+                <br>
+            %endfor
+        </div>
+    %endif
     %endif
 
 </div>

@@ -401,7 +401,7 @@ ul.polls li:hover {
 ul.polls {
     list-style-type: none;
     display: none;
-    padding: 3px;
+    padding: 5px;
     background-color: #FBBF16;
     color: #1A64B7;
     margin: 0;
