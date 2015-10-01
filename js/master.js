@@ -56,8 +56,8 @@ $(document).ready(function () {
     });
     $('#new-link-item').click(function () {
         var lli = $('#new-link-item').parents('.admin-tab').find('.link-item').last();
-        var str = lli[0].outerHTML + '<br/>';
-        lli.next().after(str);
+        var str = lli[0].outerHTML;
+        lli.parent().append(str);
         lli = $('#new-link-item').parents('.admin-tab').find('.link-item').last();
         lli.find('input').val('');
         lli.find('textarea').val('');
@@ -67,8 +67,8 @@ $(document).ready(function () {
     });
     $('#new-poll-item').click(function () {
         var lli = $('#new-poll-item').parents('.admin-tab').find('.link-item').last();
-        var str = lli[0].outerHTML + '<br/>';
-        lli.next().after(str);
+        var str = lli[0].outerHTML;
+        lli.parent().append(str);
         var el = $('#new-poll-item').parents('.admin-tab').find('.link-item').last();
         el.find('input').val('');
         el.find('textarea').val('');
