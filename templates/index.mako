@@ -54,6 +54,26 @@
                             src="http://widgets.sports-reference.com/wg.fcgi?css=1&site=bbr&url=%2Fteams%2FGSW%2F2015.html&div=div_totals"></script>
                     </div>
                 </div>
+            %elif active_page == "/vip":
+                <div class="below" style="max-width: ${page_config.get('max_stream_width', 99999)}px;">
+                    <ul class="tab-control">
+                        <li id="polls" class="active-tab">VIP Polls</li>
+                        <li id="memes">Dank Memes</li>
+                    </ul>
+                    <div data-tab="polls" style="padding: 3px;">
+                        <%
+                        vip_polls = [poll for poll in polls if poll.get('uri', '') is not '' and poll.get('vip_only', True)]
+                        %>
+                        %if len(vip_polls) > 0:
+                            %for poll in vip_polls:
+                                <a href="/polls{poll['uri']}" class="poll_link">${poll['name']}</a>
+                            %endfor
+                        %endif
+                    </div>
+                    <div data-tab="memes" style="padding: 3px; display:none">
+                        <a href="//reddit.com/r/bestofandyschat">/r/bestofandyschat</a> - For all your dank meme needs
+                    </div>
+                </div>
             %endif
         </div>
         <div class="chat-container">

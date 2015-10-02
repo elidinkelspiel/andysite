@@ -392,6 +392,23 @@ ul.polls li {
     border: 2px solid #FBBF16;
 }
 
+a.poll_link {
+    margin: 5px;
+    padding: 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    height: 30px;
+    line-height: 20px;
+    border: 1px solid #333;
+    color: #333;
+    font-weight: 500;
+    background-color: #FBBF16;
+    margin-right: 0;
+}
+
 ul.polls li:hover {
     /*color: #FBBF16;*/
     /*background-color: #1A64B7;*/
