@@ -249,9 +249,7 @@ $(document).ready(function () {
         if ($(this).parents('.admin-tab').children('.link-item').length == 1) {
             $(this).parents('.admin-tab').find('.admin-action[id^="new"]').click()
         }
-        var br = $(this).parents().eq(0).next();
         $(this).parents().eq(0).remove();
-        br.remove();
     }).on('click', "span.vip-del", function () {
         $(this).parent().remove();
         if ($('.vip-item').length == 0) {
