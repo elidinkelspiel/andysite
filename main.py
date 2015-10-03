@@ -67,6 +67,9 @@ class renderer(object):
             return tmpl.render(vips=vips, password=kw['pw_input'], polls=polls, config=config, active_page=page_url)
 
     @cherrypy.expose
+    def test(self):
+        return "memes"
+    @cherrypy.expose
     def default(self, *args, **kw):
         page_url = '/' + '/'.join(args)
         if page_url in URLS or page_url in POLL_URLS:
