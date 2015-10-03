@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     resizeFunc = function () {
         var h;
         if ($(window).width() > 800) {
@@ -38,8 +39,20 @@ $(document).ready(function () {
     setTimeout(function () {
         resizeFunc()
     }, 1000);
+    if (location.pathname == "/") {
+        $('.below td').each(function () {
+            if ($(this).html() == "") {
+                $(this).html("-")
+            }
+        });
+    }
     $('iframe').load(function () {
-        resizeFunc()
+        resizeFunc();
+        $('.below td').each(function () {
+            if ($(this).html() == "") {
+                $(this).html("-")
+            }
+        });
     });
     $('.logo, .hand').click(function () {
         location.href = "/"
