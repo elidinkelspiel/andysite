@@ -66,7 +66,7 @@
                         %>
                         %if len(vip_polls) > 0:
                             %for poll in vip_polls:
-                                <a href="/polls{poll['uri']}" class="poll_link">${poll['name']}</a>
+                                <a href="/polls${poll['uri']}" class="poll_link">${poll['name']}</a>
                             %endfor
                         %endif
                     </div>
