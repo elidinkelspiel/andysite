@@ -15,8 +15,9 @@ $(document).ready(function () {
                 if (th == 50) {
                     th = 99999;
                 }
-                if ((hv + 37) > hc) {
+                if ((hv + 150) > hc) {
                     $('.below').css({"max-height": th, height: "100%", width: "calc(100vw - 60px)"})
+                    $('.chat-container iframe').css('height', hv);
                 } else {
                     $('.below').css({
                         "max-height": th,
