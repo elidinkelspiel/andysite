@@ -10,6 +10,8 @@
     <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/js/master.js" type="text/javascript"></script>
+    <meta name="theme-color" content="#FBBF16">
+    <link rel="icon" sizes="192x192" href="favicon.png">
     <script type="text/javascript">
         max_poll_opts = parseInt(${poll.get('max_opts',99999999)});
         try {
