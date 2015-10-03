@@ -9,8 +9,8 @@
 
     %for link in config:
         %if link['name'] != "error" and (link['uri']!="/polls" or len(filtered_polls)>0):
-            <a class="${"active" if link['uri']==active_page else ""}"
-               href="${link['uri']}" ${"onclick=\'return false\'" if link['uri'] == "/polls" else ""}>
+            <a class="${"active" if link['uri']==active_page else ""} ${"polls-link" if link['uri']=="/polls" else ""}"
+               href="${link['uri']}">
                 ${link['name']}
                 %if link['uri'] == "/polls":
                     <ul class="polls">

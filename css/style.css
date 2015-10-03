@@ -369,11 +369,11 @@ html {
     box-sizing: inherit;
 }
 
-a[href="/polls"] {
+a.polls-link {
     position: relative;
 }
 
-a[href="/polls"]:hover > ul.polls, ul.polls:hover {
+a.polls-link:hover > ul.polls, ul.polls:hover {
     display: block;
     position: absolute;
     left: -50%;
@@ -532,7 +532,7 @@ span.hand {
         padding-top: 5px !important;
     }
 
-    a[href="/polls"]:hover > ul.polls, ul.polls:hover {
+    a.polls-link:hover > ul.polls, ul.polls:hover {
         display: block !important;
     }
 }

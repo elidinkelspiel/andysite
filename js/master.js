@@ -184,9 +184,16 @@ $(document).ready(function () {
             });
         }
     });
-    $('ul.polls li').click(function(e){
-        e.preventDefault();
-        location.assign($(this).attr('data-href'));
+    $('ul.polls li').hover(function(e){
+        //e.preventDefault();
+        //location.assign($(this).attr('data-href'));
+        $('a.polls-link').attr('href', $(this).attr('data-href'));
+    });
+    $('a.polls-link').click(function(e){
+        if ($(e.target).is('a')) {
+            e.preventDefault();
+            return false;
+        }
     });
     $('#make-vote').click(function () {
         var res = [];
