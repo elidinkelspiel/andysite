@@ -76,6 +76,9 @@
         </form>
     %endif</%doc>
     <h1>${poll['name'].title()}</h1>
+    %if poll.get('description','') != '':
+        <h3 style="font-weight: 300;">${poll['description']}</h3>
+    %endif
 
     %if poll['vip_only'] and (password is UNDEFINED or username is UNDEFINED or vips.get(username, None) != password):
         <span style="font-weight: 500;">This poll is VIP only. Please log in to access it.</span>

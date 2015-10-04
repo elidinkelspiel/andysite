@@ -108,6 +108,7 @@
                 <div class="link-item" style="margin-bottom: 10px;">
                     <span class="delete">DELETE</span>
                     Page Title: <input type="text" data-key="name" value=""/><br/>
+                    Page Description: <input type="text" data-key="description" value=""/><br/>
                     Page URL: <input type="text" data-key="uri" value=""/><br/> (leave blank for no external link) <br/>
                     VIPs only: <input data-key="vip_only" type="checkbox"/><br/>
                     Max options: <input data-key="max_opts" type="number" min="1" value="1"/> (leave blank for unlimited)<br/>
@@ -130,6 +131,7 @@
                         <a href="/polls${poll.get('uri','')}">Link to Poll</a><br/>
                     %endif
                     Page Title: <input type="text" data-key="name" value="${poll['name']}"/><br/>
+                    Page Description: <input type="text" data-key="description" value="${poll.get('description','')}"/><br/>
                     Page URL: <input type="text" data-key="uri" value="${poll.get('uri','')}"/> <br/>(leave blank for no
                     external
                     link) <br/>
