@@ -46,20 +46,21 @@ $(document).ready(function () {
         var html = $(this).parents('div.score').find('div[class^="score-dts"]').html();
         if ($(window).width() > 600) {
             var x = e.clientX;
-            var y = e.clientY;
+            var y = e.clientY + window.scrollY;
             var i = $(this).parents('div.score').find('div[class^="score-dts"]').attr('class').split('-')[2];
             var same = i == $('div.score-deets').attr('data-score');
-        if (same) {
-            $('div.score-deets').attr('data-score', "").fadeOut();
+            if (same) {
+                $('div.score-deets').attr('data-score', "").fadeOut();
+            } else {
+                $('div.score-deets').html(html).attr('data-score', i).css({
+                    'left': x + "px",
+                    'top': y + 20 + "px"
+                }).fadeIn();
+            }
         } else {
-            $('div.score-deets').html(html).attr('data-score', i).css({
-                'left': x + "px",
-                'top': y + 20 + "px"
-            }).fadeIn();
-        }} else {
             var re = /<br>(.*)<br>(.*)<br>/g;
             var match = re.exec(html);
-            html = match[1]+"\n"+match[2];
+            html = match[1] + "\n" + match[2];
             swal({
                 title: "Top Performers",
                 text: html,

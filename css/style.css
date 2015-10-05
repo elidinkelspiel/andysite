@@ -531,7 +531,7 @@ span.hand {
 }
 
 /*mobile*/
-@media (max-width: 600px) {
+@media (max-width: 750px) {
     nav span.mobile-nav, nav span.hand {
         display: inline;
     }
