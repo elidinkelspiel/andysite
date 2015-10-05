@@ -1,5 +1,6 @@
 __author__ = 'Nadav'
 import os
+import threading
 import json
 import mimetypes
 import requests
@@ -11,11 +12,24 @@ mimetypes.add_type('image/svg+xml', '.svg', True)
 from mako.lookup import TemplateLookup
 
 
+def set_interval(func, sec):
+    def func_wrapper():
+        set_interval(func, sec)
+        func()
+
+    t = threading.Timer(sec, func_wrapper)
+    t.start()
+    return t
+
+def get_scores():
+    r = requests.get('http://sports.espn.go.com/nba/bottomline/scores').text
+    global livescores
+    livescores = r
+
 class renderer(object):
     @cherrypy.expose
     def livescores(self, *args, **kw):
-        r = requests.get('http://sports.espn.go.com/nba/bottomline/scores').text
-        return r
+        return livescores
     @cherrypy.expose
     def admin(self, *args, **kw):
         page_url = "admin"
@@ -113,7 +127,7 @@ class renderer(object):
                 vote = kw.get('vote', '')
                 # cookie_name = 'abcdef'
                 if vote == '' and cherrypy.request.cookie.get(cookie_name, False) is False:
-                    return tmpl.render(voted=False, poll=poll, config=config, vips=vips, password=kw['pw_input'],
+                    return tmpl.render(polls=polls, voted=False, poll=poll, config=config, vips=vips, password=kw['pw_input'],
                                        username=kw.get('pw_user', None))
                 elif vote != '':
                     # TODO parse array and add votes, cookie
@@ -150,6 +164,7 @@ ADMIN_CFG = CFG_FILE.read()
 POLL_CFG = POLL_FILE.read()
 VIP_CFG = VIP_FILE.read()
 polls = json.loads(POLL_CFG)
+livescores = ""
 config = json.loads(ADMIN_CFG)
 vips = json.loads(VIP_CFG)
 URLS = [x['uri'] for x in config]
@@ -158,4 +173,6 @@ CFG_FILE.close()
 os.chdir(curpath)
 cherrypy.config.update('config.cfg')
 app = cherrypy.tree.mount(renderer(), config='config.cfg')
+get_scores()
+set_interval(get_scores, 59)
 cherrypy.quickstart(app)

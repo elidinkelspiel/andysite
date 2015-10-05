@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.buttflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.buttflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css">
     <meta name="theme-color" content="#FBBF16">
     <link rel="icon" sizes="192x192" href="favicon.png">
     <script src="/js/master.js" type="text/javascript"></script>
@@ -67,7 +69,7 @@
                         <li id="teamstats">Team Stats</li>
                     </ul>
                     <div style="padding:5px; height: auto" data-tab="livescores">
-                        GSW 100 - LAC 0
+                        Loading...
                     </div>
                     <div data-tab="teamstats" style="display:none">
                     <script type="text/javascript"
@@ -124,5 +126,6 @@
 <footer>
     enjoy our streams? <a href="https://www.twitchalerts.com/donate/handrewbrozel" target="_blank">donate</a> to help us out and become a <a href="/vip">vip</a>!
 </footer>
+<div class="score-deets" data-score=""></div>
 </body>
 </html>

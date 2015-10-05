@@ -42,33 +42,60 @@ team_abbr = {
     'Washington': 'WAS'
 };
 $(document).ready(function () {
+    $('body').on('click', 'div.score i.fa-ellipsis-h', function (e) {
+        var html = $(this).parents('div.score').find('div[class^="score-dts"]').html();
+        if ($(window).width() > 600) {
+            var x = e.clientX;
+            var y = e.clientY;
+            var i = $(this).parents('div.score').find('div[class^="score-dts"]').attr('class').split('-')[2];
+            var same = i == $('div.score-deets').attr('data-score');
+        if (same) {
+            $('div.score-deets').attr('data-score', "").fadeOut();
+        } else {
+            $('div.score-deets').html(html).attr('data-score', i).css({
+                'left': x + "px",
+                'top': y + 20 + "px"
+            }).fadeIn();
+        }} else {
+            var re = /<br>(.*)<br>(.*)<br>/g;
+            var match = re.exec(html);
+            html = match[1]+"\n"+match[2];
+            swal({
+                title: "Top Performers",
+                text: html,
+                confirmButtonText: "Close"
+            });
+        }
+    }).on('click', 'div.score-deets i.fa-times', function (e) {
+        $('div.score-deets').attr('data-score', "").fadeOut();
+    });
     updateLiveStats = function () {
         $.get('/livescores', function (data) {
             var data = unescape(data).split("nba_s_left");
             data.shift();
             var html = "";
-            var score = "<div class='score'>{0}</div>";
+            var score = "<div class='score'>{0}<i class='fa fa-ellipsis-h'></i></div>";
             var match;
             var re;
             for (var i = 0; i < data.length; i++) {
-                re = /\d*?=(?:([a-zA-Z\s]*)(\d*)\s*([a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([a-zA-Z\s]*)at([a-zA-Z\s]*).*\((.*)\))?.*url.*?=(.*)/g;
+                re = /\d*?=(?:([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([\^a-zA-Z\s]*)at([\^a-zA-Z\s]*).*\((.*)\))?.*url.*?=(.*)/g;
                 match = re.exec(data[i]);
                 match.shift();
-                console.log('match {0} - {1}'.format(i,match));
+                console.log('match {0} - {1}'.format(i, match));
                 if (match[0] != "" && match[0] != null && match[0] != undefined) { //ongoing game
-                    match[0] = "<b>{0}</b>".format(team_abbr[match[0].trim()]);
-                    match[1] = match[1].trim() + "<br/>";
-                    match[2] = "<b>{0}</b>".format(team_abbr[match[2].trim()]);
-                    match[3] = match[3].trim() + "<br/>";
-                    match[4] = match[4].trim() + "<br/>";
-                    match[5] = "<div class='score-deets'>" + match[5].trim() + "<br/>";
-                    match[6] = match[6].trim() + "<br/>";
-                    match[10] = "</div><a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10]);
+                    match[0] = "<b {1}>{0}</b>".format(team_abbr[match[0].trim().replace(/\^/g, '')], match[0].indexOf("^") > -1 ? "class='winner'" : ""); //team 1
+                    match[1] = match[1].trim() + "<br/>"; //score 1
+                    match[2] = "<b {1}>{0}</b>".format(team_abbr[match[2].trim().replace(/\^/g, '')], match[2].indexOf("^") > -1 ? "class='winner'" : ""); //team 2
+                    match[3] = match[3].trim() + "<br/>"; //score 2
+                    match[4] = match[4].trim() + "<br/>"; //time
+                    match[5] = "<div class='score-dts-{0}'><i class='fa fa-times'></i><b>Top Performers</b><br/>".format(i) + match[5].trim() + "<br/>"; //player1
+                    match[6] = match[6].trim() + "<br/>"; //player2
+                    match[10] = "</div><a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10]); //url
                 } else { //future game
-                    match[7] = "<b>{0}</b>".format(team_abbr[match[7].trim()]) + "<br/>";
-                    match[8] = "<b>{0}</b>".format(team_abbr[match[8].trim()]) + "<br/>";
-                    match[9] = match[9].trim() + "<br/>";
-                    match[10] = "<a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10]);
+                    match[7] = "<b>{0}</b>".format(team_abbr[match[7].trim().replace(/\^/g, '')]) + "<br/>"; //team1
+                    match[8] = "<b>{0}</b>".format(team_abbr[match[8].trim().replace(/\^/g, '')]) + "<br/>"; //team2
+                    match[9] = match[9].trim() + "<br/>"; //time
+                    match[10] = "<a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10]); //url
                 }
                 html += score.format(match.join(' '));
             }

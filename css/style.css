@@ -19,6 +19,7 @@
     margin: 0 0 0 1px;
     padding-left: 0;
 }
+
 .tab-control li {
     cursor: pointer;
     float: left;
@@ -32,6 +33,7 @@
     border-bottom: none;
     margin-right: 5px;
 }
+
 .tab-control li.active-tab {
     background: -moz-linear-gradient(rgba(0, 0, 0, 0), #1A64B7);
     background: -o-linear-gradient(rgba(0, 0, 0, 0), #1A64B7);
@@ -165,7 +167,7 @@ div[data-tab] {
     top: 0;
     right: 0;
     padding: 5px;
-    margin-top:10px;
+    margin-top: 10px;
     margin-right: 10px;
     background-color: #ff4332;
     color: white;
@@ -268,7 +270,6 @@ nav {
 ul.polls li:nth-child(even) {
     background-color: #e5aa16;
 }
-
 
 div.opt-votes {
     -webkit-border-radius: 5px;
@@ -409,26 +410,56 @@ a.poll_link {
     margin-right: 0;
 }
 
+div[class^="score-dts"] {
+    display: none;
+}
+
+.sweet-alert {
+    font-family: inherit !important;
+}
+
+div.score-deets i.fa-times {
+    float: right;
+    cursor: pointer;
+}
+
 div.score-deets {
     display: none;
+    position: absolute;
+    width: 300px;
+    text-align: center;
+    color: black;
+    height: auto;
+    background-color: #fefefe;
+    top: 0;
+    right: 0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    padding: 10px;
 }
 
 div.score {
     position: relative;
     padding: 5px 10px;
+    text-align: center;
     display: inline-block;
 }
 
 a.score-link {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin-right: 10px;
+}
+
+.score .fa-ellipsis-h {
+    cursor: pointer;
 }
 
 ul.polls li:hover {
     /*color: #FBBF16;*/
     /*background-color: #1A64B7;*/
     border: 2px solid #1A64B7;
+}
+
+.winner {
+    color: #5cb85c;
 }
 
 ul.polls {
@@ -499,30 +530,32 @@ span.hand {
     }
 }
 
-
-
 /*mobile*/
 @media (max-width: 600px) {
     nav span.mobile-nav, nav span.hand {
         display: inline;
     }
+
     footer {
         font-size: 1em;
     }
+
     nav {
         position: relative;
     }
+
     .container {
         margin-top: 0;
     }
-   /* .desktop-nav {
-        display: none;
-        position: absolute;
-        z-index: 9999;
-        width: 100%;
-        left: 0;
-        top: 60px;
-    }*/
+
+    /* .desktop-nav {
+         display: none;
+         position: absolute;
+         z-index: 9999;
+         width: 100%;
+         left: 0;
+         top: 60px;
+     }*/
     nav a {
         display: none;
         -webkit-border-radius: 0;
@@ -535,9 +568,11 @@ span.hand {
         left: -10px;
         top: 9px;
     }
+
     nav a:last-child {
         margin-bottom: 30px;
     }
+
     ul.polls {
         position: relative !important;
         display: none;
