@@ -1,5 +1,101 @@
+if (!String.prototype.format) {
+    String.prototype.format = function () {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] != 'undefined'
+                ? args[number]
+                : match
+                ;
+        });
+    };
+}
+team_abbr = {
+    'Atlanta': 'ATL',
+    'Brooklyn': 'BKN',
+    'Boston': 'BOS',
+    'Charlotte': 'CHA',
+    'Chicago': 'CHI',
+    'Cleveland': 'CLE',
+    'Dallas': 'DAL',
+    'Denver': 'DEN',
+    'Detroit': 'DET',
+    'Golden State': 'GSW',
+    'Houston': 'HOU',
+    'Indiana': 'IND',
+    'LA Clippers': 'LAC',
+    'LA Lakers': 'LAL',
+    'Memphis': 'MEM',
+    'Miami': 'MIA',
+    'Milwaukee': 'MIL',
+    'Minnesota': 'MIN',
+    'New Orleans': 'NOP',
+    'New York': 'NYK',
+    'Oklahoma City': 'OKC',
+    'Orlando': 'ORL',
+    'Philadelphia': 'PHI',
+    'Phoenix': 'PHX',
+    'Portland': 'POR',
+    'Sacramento': 'SAC',
+    'San Antonio': 'SAS',
+    'Toronto': 'TOR',
+    'Utah': 'UTA',
+    'Washington': 'WAS'
+};
 $(document).ready(function () {
-
+    updateLiveStats = function () {
+        $.get('/livescores', function (data) {
+            var data = unescape(data).split("nba_s_left");
+            data.shift();
+            var html = "";
+            var score = "<div class='score'>{0}</div>";
+            var match;
+            var re;
+            for (var i = 0; i < data.length; i++) {
+                re = /\d*?=(?:([a-zA-Z\s]*)(\d*)\s*([a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([a-zA-Z\s]*)at([a-zA-Z\s]*).*\((.*)\))?.*url.*?=(.*)/g;
+                match = re.exec(data[i]);
+                match.shift();
+                console.log('match {0} - {1}'.format(i,match));
+                if (match[0] != "" && match[0] != null && match[0] != undefined) { //ongoing game
+                    match[0] = "<b>{0}</b>".format(team_abbr[match[0].trim()]);
+                    match[1] = match[1].trim() + "<br/>";
+                    match[2] = "<b>{0}</b>".format(team_abbr[match[2].trim()]);
+                    match[3] = match[3].trim() + "<br/>";
+                    match[4] = match[4].trim() + "<br/>";
+                    match[5] = "<div class='score-deets'>" + match[5].trim() + "<br/>";
+                    match[6] = match[6].trim() + "<br/>";
+                    match[10] = "</div><a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10]);
+                } else { //future game
+                    match[7] = "<b>{0}</b>".format(team_abbr[match[7].trim()]) + "<br/>";
+                    match[8] = "<b>{0}</b>".format(team_abbr[match[8].trim()]) + "<br/>";
+                    match[9] = match[9].trim() + "<br/>";
+                    match[10] = "<a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10]);
+                }
+                html += score.format(match.join(' '));
+            }
+            $('div[data-tab="livescores"]').html(html);
+        })
+    }
+    voteResults = function () {
+        $('.vote-results div[data-votes]').each(function () {
+            //var bw = 50;
+            var v = parseInt($(this).attr('data-votes'));
+            var f = v / max_vote;
+            var maxw = $(this).css('max-width');
+            if (maxw == "100%") {
+                maxw = $('.container').width() - 40;
+            } else {
+                maxw = parseInt(maxw.replace(/[%a-zA-Z]/g, ''));
+            }
+            var minw = $(this).css('min-width');
+            minw = parseInt(minw.replace(/[%a-zA-Z]/g, ''));
+            var w = (maxw - minw) * f;
+            /*var ow = $(this).css('width');
+             ow = parseInt(ow.replace(/[%a-zA-Z]/g, ''));*/
+            var nw = minw + w;
+            //console.log(nw);
+            $(this).css('width', nw);
+        });
+    }
     resizeFunc = function () {
         var h;
         if ($(window).width() > 800) {
@@ -45,6 +141,10 @@ $(document).ready(function () {
                 $(this).html("-")
             }
         });
+        updateLiveStats();
+        setInterval(function () {
+            updateLiveStats()
+        }, 60000);
     }
     $('iframe').load(function () {
         resizeFunc();
@@ -65,8 +165,8 @@ $(document).ready(function () {
             $(window).resize();
         });
     });
-    $('span.mobile-nav').click(function(){
-       $('nav a').slideToggle();
+    $('span.mobile-nav').click(function () {
+        $('nav a').slideToggle();
     });
     $('#new-link-item').click(function () {
         var lli = $('#new-link-item').parents('.admin-tab').find('.link-item').last();
@@ -197,12 +297,12 @@ $(document).ready(function () {
             });
         }
     });
-    $('ul.polls li').hover(function(e){
+    $('ul.polls li').hover(function (e) {
         //e.preventDefault();
         //location.assign($(this).attr('data-href'));
         $('a.polls-link').attr('href', $(this).attr('data-href'));
     });
-    $('a.polls-link').click(function(e){
+    $('a.polls-link').click(function (e) {
         if ($(e.target).is('a')) {
             e.preventDefault();
             return false;
@@ -227,27 +327,6 @@ $(document).ready(function () {
             });
         }
     });
-    voteResults = function () {
-        $('.vote-results div[data-votes]').each(function () {
-            //var bw = 50;
-            var v = parseInt($(this).attr('data-votes'));
-            var f = v / max_vote;
-            var maxw = $(this).css('max-width');
-            if (maxw == "100%") {
-                maxw = $('.container').width() - 40;
-            } else {
-                maxw = parseInt(maxw.replace(/[%a-zA-Z]/g, ''));
-            }
-            var minw = $(this).css('min-width');
-            minw = parseInt(minw.replace(/[%a-zA-Z]/g, ''));
-            var w = (maxw - minw) * f;
-            /*var ow = $(this).css('width');
-             ow = parseInt(ow.replace(/[%a-zA-Z]/g, ''));*/
-            var nw = minw + w;
-            //console.log(nw);
-            $(this).css('width', nw);
-        });
-    }
     $('.poll-list li').click(function () {
         $(this).toggleClass('active');
         if ($('.poll-list li.active').length > max_poll_opts) {

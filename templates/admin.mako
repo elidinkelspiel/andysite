@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Top Sikrit Admin Config</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
     <meta name="theme-color" content="#FBBF16">
     <link rel="icon" sizes="192x192" href="favicon.png">

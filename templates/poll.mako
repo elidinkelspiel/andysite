@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>${poll['name'].title()} - Handrewbrozel</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/js/master.js" type="text/javascript"></script>

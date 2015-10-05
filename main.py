@@ -2,7 +2,7 @@ __author__ = 'Nadav'
 import os
 import json
 import mimetypes
-
+import requests
 import cherrypy
 
 if not mimetypes.inited:
@@ -12,6 +12,10 @@ from mako.lookup import TemplateLookup
 
 
 class renderer(object):
+    @cherrypy.expose
+    def livescores(self, *args, **kw):
+        r = requests.get('http://sports.espn.go.com/nba/bottomline/scores').text
+        return r
     @cherrypy.expose
     def admin(self, *args, **kw):
         page_url = "admin"
