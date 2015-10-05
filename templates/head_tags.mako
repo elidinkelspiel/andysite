@@ -7,7 +7,7 @@
 <script src="//code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdnjs.buttflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css">
 <meta name="theme-color" content="#FBBF16">
 <link rel="icon" sizes="192x192" href="favicon.png">
 <script src="/js/master.js" type="text/javascript"></script>
