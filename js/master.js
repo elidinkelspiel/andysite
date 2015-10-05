@@ -39,7 +39,7 @@ team_abbr = {
     'San Antonio': 'SAS',
     'Toronto': 'TOR',
     'Utah': 'UTA',
-    'Fenerbahce Ulker': 'FENER',
+    'Fenerbahce Ulker': 'FBU',
     'Washington': 'WAS'
 };
 $(document).ready(function () {
