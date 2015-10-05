@@ -54,7 +54,7 @@ $(document).ready(function () {
             } else {
                 $('div.score-deets').html(html).attr('data-score', i).css({
                     'left': x + "px",
-                    'top': y + 20 + "px"
+                    'top': y + 10 + "px"
                 }).fadeIn();
             }
         } else {
