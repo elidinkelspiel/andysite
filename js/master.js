@@ -39,6 +39,7 @@ team_abbr = {
     'San Antonio': 'SAS',
     'Toronto': 'TOR',
     'Utah': 'UTA',
+    'Fenerbahce Ulker': 'FENER',
     'Washington': 'WAS'
 };
 $(document).ready(function () {
@@ -79,7 +80,7 @@ $(document).ready(function () {
             var match;
             var re;
             for (var i = 0; i < data.length; i++) {
-                re = /\d*?=(?:([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([\^a-zA-Z\s]*)at([\^a-zA-Z\s]*).*\((.*)\))?.*url.*?=(.*)/g;
+                re = /\d*?=(?:([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([\^a-zA-Z\s]*) at ([\^a-zA-Z\s]*).*\((.*)\))?.*url.*?=(.*)/g;
                 match = re.exec(data[i]);
                 match.shift();
                 console.log('match {0} - {1}'.format(i, match));
