@@ -317,9 +317,13 @@ $(document).ready(function () {
             var inputs = t.find('[data-key]');
             var name = t.find('[data-key="name"]').val().trim();
             if (name == "") {
-                alert('Cmon Andy. You left the name blank in item #' + (i + 1));
-                flag = false;
-                return false;
+                if ($('[data-tab="polls"] .link-item').length > 1 ) {
+                    alert('Cmon Andy. You left the name blank in item #' + (i + 1));
+                    flag = false;
+                    return false;
+                } else {
+                    flag = 1;
+                }
             }
             inputs.each(function () {
                 if ($(this).is('input')) {
@@ -340,7 +344,7 @@ $(document).ready(function () {
                             });
                         }
                     });
-                    if (obj[$(this).attr('data-key')].length == 0) {
+                    if (obj[$(this).attr('data-key')].length == 0 && flag !== 1) {
                         alert('Cmon Andy. You didn\'t add any options in item #' + (i + 1));
                         flag = false;
                         return false;
@@ -349,6 +353,10 @@ $(document).ready(function () {
             });
             items.push(obj)
         });
+        if (flag == 1) {
+            flag = true;
+            items = [];
+        }
         if (flag) {
             $.post("/admin", {"polls": JSON.stringify(items)}, function (data) {
                 if (data == "success") {
