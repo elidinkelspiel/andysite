@@ -8,7 +8,7 @@
     %>
 
     %for link in config:
-        %if link['name'] != "error" and (link['uri']!="/polls" or len(filtered_polls)>0):
+        %if link['name'] != "error" and (link['uri']!="/polls" or len(filtered_polls)>0) and link.get('hide', False) is False:
             <a class="${"active" if link['uri']==active_page else ""} ${"polls-link" if link['uri']=="/polls" else ""}"
                href="${link['uri']}">
                 ${link['name']}

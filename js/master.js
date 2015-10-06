@@ -9,6 +9,17 @@ if (!String.prototype.format) {
         });
     };
 }
+
+Array.prototype.clean = function (deleteValue) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == deleteValue) {
+            this.splice(i, 1);
+            i--;
+        }
+    }
+    return this;
+};
+
 team_abbr = {
     'Atlanta': 'ATL',
     'Brooklyn': 'BKN',
@@ -81,24 +92,36 @@ $(document).ready(function () {
             var match;
             var re;
             for (var i = 0; i < data.length; i++) {
-                re = /\d*?=(?:([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([\^a-zA-Z\s]*) at ([\^a-zA-Z\s]*).*\((.*)\))?.*url.*?=(.*)/g;
+                re = /\d*?=(?:(?!.*? at .*?)([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([\^a-zA-Z\s]*) at ([\^a-zA-Z\s]*).*\((.*)\).*url.*?=(.*))?/g;
                 match = re.exec(data[i]);
                 match.shift();
+                match.clean(undefined);
+                match.clean("");
                 console.log('match {0} - {1}'.format(i, match));
-                if (match[0] != "" && match[0] != null && match[0] != undefined) { //ongoing game
-                    match[0] = "<b {1}>{0}</b>".format(team_abbr[match[0].trim().replace(/\^/g, '')], match[0].indexOf("^") > -1 ? "class='winner'" : ""); //team 1
-                    match[1] = match[1].trim() + "<br/>"; //score 1
-                    match[2] = "<b {1}>{0}</b>".format(team_abbr[match[2].trim().replace(/\^/g, '')], match[2].indexOf("^") > -1 ? "class='winner'" : ""); //team 2
-                    match[3] = match[3].trim() + "<br/>"; //score 2
-                    match[4] = match[4].trim() + "<br/>"; //time
-                    match[5] = "<div class='score-dts-{0}'><i class='fa fa-times'></i><b>Top Performers</b><br/>".format(i) + match[5].trim() + "<br/>"; //player1
-                    match[6] = match[6].trim() + "<br/>"; //player2
-                    match[10] = "</div><a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
+                if (match.length > 4) { //ongoing game
+                    if (match.length > 7) {
+                        match[0] = "<b {1}>{0}</b>".format(team_abbr[match[0].trim().replace(/\^/g, '')], match[0].indexOf("^") > -1 ? "class='winner'" : ""); //team 1
+                        match[1] = match[1].trim() + "<br/>"; //score 1
+                        match[2] = "<b {1}>{0}</b>".format(team_abbr[match[2].trim().replace(/\^/g, '')], match[2].indexOf("^") > -1 ? "class='winner'" : ""); //team 2
+                        match[3] = match[3].trim() + "<br/>"; //score 2
+                        match[4] = match[4].trim() + "<br/>"; //time
+                        match[5] = "<div class='score-dts-{0}'><i class='fa fa-times'></i><b>Top Performers</b><br/>".format(i) + match[5].trim() + "<br/>"; //player1
+                        match[6] = match[6].trim() + "<br/>"; //player2
+                        match[10] = "</div><a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
+                    } else {
+                        match[0] = "<b {1}>{0}</b>".format(team_abbr[match[0].trim().replace(/\^/g, '')], match[0].indexOf("^") > -1 ? "class='winner'" : ""); //team 1
+                        match[1] = match[1].trim() + "<br/>"; //score 1
+                        match[2] = "<b {1}>{0}</b>".format(team_abbr[match[2].trim().replace(/\^/g, '')], match[2].indexOf("^") > -1 ? "class='winner'" : ""); //team 2
+                        match[3] = match[3].trim() + "<br/>"; //score 2
+                        match[4] = match[4].trim() + "<br/>"; //time
+                        match[6] = "<a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[6].replace('/preview?', '/boxscore?')); //url
+                        match.splice(5, 1);
+                    }
                 } else { //future game
-                    match[7] = "<b>{0}</b>".format(team_abbr[match[7].trim().replace(/\^/g, '')]) + "<br/>"; //team1
-                    match[8] = "<b>{0}</b>".format(team_abbr[match[8].trim().replace(/\^/g, '')]) + "<br/>"; //team2
-                    match[9] = match[9].trim() + "<br/>"; //time
-                    match[10] = "<a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
+                    match[0] = "<b>{0}</b>".format(team_abbr[match[0].trim().replace(/\^/g, '')]) + "<br/>"; //team1
+                    match[1] = "<b>{0}</b>".format(team_abbr[match[1].trim().replace(/\^/g, '')]) + "<br/>"; //team2
+                    match[2] = match[2].trim() + "<br/>"; //time
+                    match[3] = "<a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[3].replace('/preview?', '/boxscore?')); //url
                 }
                 html += score.format(match.join(' '));
             }
@@ -240,8 +263,12 @@ $(document).ready(function () {
                 return false;
             }
             inputs.each(function () {
-                if ($(this).val() != "")
+                if ($(this).is('[type="checkbox"]')) {
+                    obj[$(this).attr('data-key')] = $(this).prop('checked')
+                }
+                else if ($(this).val() != "") {
                     obj[$(this).attr('data-key')] = $(this).val().trim()
+                }
             });
             items.push(obj)
         });

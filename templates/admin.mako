@@ -59,6 +59,8 @@
                     %endif
                     Page Title: <input type="text" data-key="name" value="${link['name']}"/><br/>
                     Page URL: <input type="text" data-key="uri" value="${link['uri']}"/><br/>
+                    Hide in navbar: <input data-key="hide" type="checkbox" ${"checked" if link.get('hide',False) is True else ""}/><br/>
+                    VIPs only: <input data-key="vip_only" type="checkbox" ${"checked" if link.get('vip_only',False) is True else ""}/><br/>
                     Page password: <input type="text" data-key="password" value="${link.get('password','')}"/> (leave
                     blank for no
                     password)<br/>
