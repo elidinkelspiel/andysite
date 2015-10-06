@@ -92,12 +92,12 @@ $(document).ready(function () {
                     match[4] = match[4].trim() + "<br/>"; //time
                     match[5] = "<div class='score-dts-{0}'><i class='fa fa-times'></i><b>Top Performers</b><br/>".format(i) + match[5].trim() + "<br/>"; //player1
                     match[6] = match[6].trim() + "<br/>"; //player2
-                    match[10] = "</div><a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
+                    match[10] = "</div><a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
                 } else { //future game
                     match[7] = "<b>{0}</b>".format(team_abbr[match[7].trim().replace(/\^/g, '')]) + "<br/>"; //team1
                     match[8] = "<b>{0}</b>".format(team_abbr[match[8].trim().replace(/\^/g, '')]) + "<br/>"; //team2
                     match[9] = match[9].trim() + "<br/>"; //time
-                    match[10] = "<a class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
+                    match[10] = "<a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
                 }
                 html += score.format(match.join(' '));
             }
