@@ -3,6 +3,13 @@
 <head lang="en">
     <title>${poll['name'].title()} - Handrewbrozel</title>
     <%include file="/templates/head_tags.mako"/>
+    <script type="text/javascript">
+        max_poll_opts = parseInt(${poll.get('max_opts',99999999)});
+        try {
+            max_vote = parseInt(${max([opt['votes'] for opt in poll['options']])})
+        } catch (e) {
+        }
+    </script>
 </head>
 <body>
     <%include file="/templates/header.mako"/>
