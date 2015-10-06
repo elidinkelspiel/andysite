@@ -138,6 +138,9 @@ $(document).ready(function () {
                 var hc = $('.chat-container iframe').css('height');
                 hc = parseInt(hc.substr(0, hc.length - 2));
                 var th = $('table.sortable').css('height');
+                if (th === undefined) {
+                    th =  "0px";
+                }
                 th = parseInt(th.substr(0, th.length - 2)) + 50;
                 if (th == 50) {
                     th = 99999;
@@ -145,6 +148,9 @@ $(document).ready(function () {
                 if ((hv + 150) > hc) {
                     $('.below').css({"max-height": th, height: "100%", width: "calc(100vw - 60px)"})
                     $('.chat-container iframe').css('height', hv);
+                    $('.below').css({
+                        width: $('.video-container iframe').css('width')
+                    })
                 } else {
                     $('.below').css({
                         "max-height": th,

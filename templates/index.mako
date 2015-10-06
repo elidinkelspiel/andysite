@@ -42,7 +42,7 @@
                     <div style="padding:5px; height: auto" data-tab="livescores">
                         Loading...
                     </div>
-                    <div data-tab="teamstats" style="display:none">
+                    <div data-tab="teamstats" style="display:none; height: auto;">
                         <div style="padding: 5px 10px;">Available at the start of the 2016 regular season.</div>
                     <%doc><script type="text/javascript"
                             src="http://widgets.sports-reference.com/wg.fcgi?css=1&site=bbr&url=%2Fteams%2FGSW%2F2015.html&div=div_totals"></script></%doc>
