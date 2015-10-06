@@ -353,7 +353,7 @@ $(document).ready(function () {
             });
             items.push(obj)
         });
-        if (flag == 1) {
+        if (flag === 1) {
             flag = true;
             items = [];
         }
