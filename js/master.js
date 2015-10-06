@@ -409,7 +409,7 @@ $(document).ready(function () {
         $(this).next().remove();
         $(this).remove();
     }).on('click', '.link-item span.delete', function () {
-        if ($(this).parents('.admin-tab').children('.link-item').length == 1) {
+        if ($(this).parents('.admin-tab').find('.link-item').length == 1) {
             $(this).parents('.admin-tab').find('.admin-action[id^="new"]').click()
         }
         $(this).parents().eq(0).remove();
