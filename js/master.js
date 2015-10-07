@@ -92,7 +92,7 @@ $(document).ready(function () {
             var match;
             var re;
             for (var i = 0; i < data.length; i++) {
-                re = /\d*?=(?:(?!.*? at .*?)([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*)?(?:([\^a-zA-Z\s]*) at ([\^a-zA-Z\s]*).*\((.*)\).*url.*?=(.*))?/g;
+                re = /\d*?=(?:(?!.*? at .*?)([\^a-zA-Z\s]*)(\d*)\s*([\^a-zA-Z\s]*)(\d*)\s*\((.*)\).*?=(.*?)&.*?=(.*?)&.*url.*?=(.*))?(?:([\^a-zA-Z\s]*) at ([\^a-zA-Z\s]*).*\((.*)\).*url.*?=(.*))?/g;
                 match = re.exec(data[i]);
                 match.shift();
                 match.clean(undefined);
@@ -107,7 +107,7 @@ $(document).ready(function () {
                         match[4] = match[4].trim() + "<br/>"; //time
                         match[5] = "<div class='score-dts-{0}'><i class='fa fa-times'></i><b>Top Performers</b><br/>".format(i) + match[5].trim() + "<br/>"; //player1
                         match[6] = match[6].trim() + "<br/>"; //player2
-                        match[10] = "</div><a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[10].replace('/preview?', '/boxscore?')); //url
+                        match[7] = "</div><a target='_blank' class='score-link' href='{0}'><i class='fa fa-link'></i></a>".format(match[7].replace('/preview?', '/boxscore?')); //url
                     } else {
                         match[0] = "<b {1}>{0}</b>".format(team_abbr[match[0].trim().replace(/\^/g, '')], match[0].indexOf("^") > -1 ? "class='winner'" : ""); //team 1
                         match[1] = match[1].trim() + "<br/>"; //score 1
