@@ -52,7 +52,8 @@ team_abbr = {
     'Utah': 'UTA',
     'Washington': 'WAS',
     'Fenerbahce Ulker': 'FBU',
-    'Milan': 'MLN'
+    'Milan': 'MLN',
+    'Bauru': 'BAU'
 };
 $(document).ready(function () {
     $('body').on('click', 'div.score i.fa-ellipsis-h', function (e) {
