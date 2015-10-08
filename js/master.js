@@ -53,6 +53,8 @@ team_abbr = {
     'Washington': 'WAS',
     'Fenerbahce Ulker': 'FBU',
     'Milan': 'MLN',
+    'Madrid': 'RMD',
+    'Maccabi Haifa': 'MAC',
     'Bauru': 'BAU'
 };
 $(document).ready(function () {
